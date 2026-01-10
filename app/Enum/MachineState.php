@@ -11,9 +11,9 @@ enum MachineState:string {
     public function color(): string
     {
         return match($this) {
-            self::PRODUCING => 'green',
-            self::IDLE => 'yellow',
-            self::STARVED => 'red',
+            self::PRODUCING => '#0de43c',
+            self::IDLE => '#e2d519',
+            self::STARVED => '#b30505',
         };
     }
 }

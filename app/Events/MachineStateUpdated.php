@@ -35,7 +35,7 @@ class MachineStateUpdated implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('machine-state-updated'),
+            new Channel('machine-state-updated'),
         ];
     }
 

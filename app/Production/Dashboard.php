@@ -2,6 +2,7 @@
 
 namespace App\Production;
 
+use App\Events\MachineStateUpdated;
 
 class Dashboard extends Observer
 {
@@ -12,7 +13,10 @@ class Dashboard extends Observer
 
     public function update(string $state, string $from): void
     {
-        echo "Employee {$this->name} ({$this->role}) notified: Machine '{$from}' changed state to '{$state}'.\n";
+        echo " Dashboard notified message: Machine '{$from}' changed state to '{$state}'.\n";
+
+        //emit event to websocket listeners
+        MachineStateUpdated::dispatch($from, $state);
 
     }
 }

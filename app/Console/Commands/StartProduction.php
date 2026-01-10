@@ -47,11 +47,13 @@ class StartProduction extends Command
             $employee1 = new Employee('Alex', 'Production Manager');
             $employee2 = new Employee('Shaun', 'Techinician');
 
+            $dashboard = new Dashboard();
             //Attach observers for machines
             foreach ($machines as $machine) {
-                // Everyone watches every machine for this demo
+
                 $machine->attach($employee1);
                 $machine->attach($employee2);
+                $machine->attach($dashboard);
             }
 
             $this->info("Simulating machine state changes...\n");
@@ -74,7 +76,7 @@ class StartProduction extends Command
             }
         } catch (\Throwable $e) {
             $this->error('An error occurred during simulation setup: ' . $e->getMessage());
-            return 1; 
+            return 1;
         }
     }
 }
