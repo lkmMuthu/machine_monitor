@@ -20,6 +20,11 @@ abstract class Subject
         $this->notifyAllObservers();
     }
 
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
     public function attach(Observer $observer): void
     {
         $this->observers->push($observer);
