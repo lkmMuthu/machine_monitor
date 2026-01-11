@@ -23,9 +23,7 @@ class MachineStateUpdated implements ShouldBroadcastNow
         public string $machineName,
         public string $newState
     )
-    {
-        //
-    }
+    {}
 
     /**
      * Get the channels the event should broadcast on.
@@ -39,6 +37,11 @@ class MachineStateUpdated implements ShouldBroadcastNow
         ];
     }
 
+    /**
+     * The data to broadcast.
+     *
+     * @return array<string, mixed>
+     */
     public function broadcastWith():array
     {
         return [

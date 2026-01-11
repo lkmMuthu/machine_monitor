@@ -35,18 +35,18 @@ class StartProduction extends Command
         try {
             $this->info('Starting production monitoring simulation...');
 
-            //Sample Machines
+            //Sample Machines create
             $machines = [
                 new Machine('Machine A'),
                 new Machine('Machine B'),
                 new Machine('Machine C')
             ];
 
-            //Sample Employees
+            //Sample Employees create
             $employee1 = new Employee('John Doe', 'Production Manager');
             $employee2 = new Employee('Jane Smith', 'Technician');
 
-            //Dashboard
+            //Dashboard create
             $dashboard = new Dashboard();
 
             //Attach observers for machines
@@ -72,7 +72,6 @@ class StartProduction extends Command
 
                         //add log to the table
                         $machineModel = MachineModel::where('name', $machine->name)->first();
-
                         if ($machineModel) {
                             MachineAuditLogModel::create([
                                 'previous_state' => $previousState,

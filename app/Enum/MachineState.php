@@ -8,6 +8,9 @@ enum MachineState:string {
     case IDLE = 'IDLE';
     case STARVED = 'STARVED';
 
+    /**
+     * Get the color associated with the machine state.
+     */
     public function color(): string
     {
         return match($this) {
