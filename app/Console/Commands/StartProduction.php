@@ -25,7 +25,8 @@ class StartProduction extends Command
     protected $description = 'Run the production monitoring simulation';
 
     /**
-     * Execute the console command.
+     * Execute the console command for starting the production monitoring simulation.
+     * @return int
      */
     public function handle()
     {
@@ -47,10 +48,11 @@ class StartProduction extends Command
             $employee1 = new Employee('Alex', 'Production Manager');
             $employee2 = new Employee('Shaun', 'Techinician');
 
+            //Dashboard
             $dashboard = new Dashboard();
+
             //Attach observers for machines
             foreach ($machines as $machine) {
-
                 $machine->attach($employee1);
                 $machine->attach($employee2);
                 $machine->attach($dashboard);
@@ -72,7 +74,8 @@ class StartProduction extends Command
                         $this->error("Error setting state for machine {$machine->name}: " . $e->getMessage());
                     }
 
-                sleep(3); // Wait for 3 seconds between state changes
+                //wait for 4 seconds before next change
+                sleep(4);
             }
         } catch (\Throwable $e) {
             $this->error('An error occurred during simulation setup: ' . $e->getMessage());
