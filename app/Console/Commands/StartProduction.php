@@ -7,6 +7,8 @@ use App\Production\Machine;
 use App\Production\Employee;
 use App\Production\Dashboard;
 use App\Enum\MachineState;
+use App\Models\MachineAuditLog as MachineAuditLogModel;
+use App\Models\Machine as MachineModel;
 
 class StartProduction extends Command
 {
@@ -37,16 +39,12 @@ class StartProduction extends Command
             $machines = [
                 new Machine('Machine A'),
                 new Machine('Machine B'),
-                new Machine('Machine C'),
-                new Machine('Machine D'),
-                new Machine('Machine E'),
-                new Machine('Machine F'),
-                new Machine('Machine G')
+                new Machine('Machine C')
             ];
 
             //Sample Employees
-            $employee1 = new Employee('Alex', 'Production Manager');
-            $employee2 = new Employee('Shaun', 'Techinician');
+            $employee1 = new Employee('John Doe', 'Production Manager');
+            $employee2 = new Employee('Jane Smith', 'Technician');
 
             //Dashboard
             $dashboard = new Dashboard();
@@ -68,8 +66,21 @@ class StartProduction extends Command
                         $machine = $machines[array_rand($machines)];
 
                         //set random state for a random machine
+                        $previousState = $machine->getState();
                         $machine->setState($randomState->value);
                         $this->info("Set {$machine->name} to state: {$randomState->value}");
+
+                        //add log to the table
+                        $machineModel = MachineModel::where('name', $machine->name)->first();
+
+                        if ($machineModel) {
+                            MachineAuditLogModel::create([
+                                'previous_state' => $previousState,
+                                'new_state' => $randomState->value,
+                                'machine_id' => $machineModel->id
+                            ]);
+                        }
+                        
                     } catch (\Throwable $e) {
                         $this->error("Error setting state for machine {$machine->name}: " . $e->getMessage());
                     }
